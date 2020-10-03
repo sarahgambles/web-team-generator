@@ -1,0 +1,25 @@
+{
+  "name": "webteam-info",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest --verbose test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarahgambles/webteam-info.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sarahgambles/webteam-info/issues"
+  },
+  "homepage": "https://github.com/sarahgambles/webteam-info#readme",
+  "devDependencies": {
+    "jest": "^26.4.2"
+  }
+}
