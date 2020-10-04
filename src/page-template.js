@@ -1,26 +1,21 @@
 // use ES6 syntax to return
 // generateTeam
 
-// { name }
-
-// everything is spit out up in here
-
-// should return the entire html
-
-// <!DOCTYPE html>
-// <html lang="en">
-// <head>
-//     <meta charset="UTF-8">
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//     <title>Document</title>
-// </head>
-// <body>
-    
-// </body>
-// </html>
+// create the employee section
+const generateEmployees = array => {
+    return `
+    <section class="" id="">
+    //add styling
+    <h2 class="">My Team</h2>
+    <div class="flex-row justify-space-between">
+    ${questions}
+    `
+}
 
 function generateEmployee(data) {
     return ` ${data.name, data.id, data.}
     
     `
 }
+
+module.exports = page-template.js
