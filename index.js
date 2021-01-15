@@ -4,27 +4,29 @@
 
 // Inquirer and write file require variables
 const inquirer = require('inquirer');
-const fs = require('fs')
+const fs = require('fs');
+const path = require("path");
 
 // Constructor Classes
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
 const Manager = require('./lib/Manager')
 
-// Generate the template
-const generatePage = require('./src/page-template')
+// Create output
+const OUTPUT_DIR = path.resolve(__dirname, "output")
+const outputPath = path.join(OUTPUT_DIR, "team.html")
 
+// Generate the template
+const render = require('./src/page-template.js');
+
+const teamMember = [];
 const array = [];
 
-const path = require("path");
 
-const output = path.resolve(__dirname, "output")
-const outputPath = path.join(output, "team.html")
-
-promptManager()
 // prompt user for manager questions function
 // array of questions to the manager that ends with a menu
 const promptManager = () => {
+    console.log("Start making your team!");
     inquirer.prompt ([
 
     {
@@ -58,6 +60,7 @@ const promptManager = () => {
 ])
 .then(answers => {
     const manager = new Manager(answers.name, answers.ID, answers.email, answers.officeNumber)
+    teamMember.push(manager);
     array.push(manager)
 
     promptEmployeeInfo()
@@ -117,7 +120,8 @@ const promptEngineer = () => {
 ])
 .then(answers => {
     const engineer = new Engineer(answers.name, answers.ID, answers.email, answers.github)
-    array.push(engineer)
+    teamMember.push(engineer)
+    array.push(answers.engineer)
 
     promptEmployeeInfo()
 })
@@ -150,48 +154,19 @@ const promptIntern = () => {
 ])
 .then(answers => {
     const intern = new Intern(answers.name, answers.ID, answers.email, answers.school)
-    array.push(intern)
-
+    teamMember.push(intern)
+    array.push(answers.intern)
     promptEmployeeInfo()
 })
 };
 
 function buildTeam() {
-    if (!fs.existsSync(output)) {
-        fs.mkdirSync(output)
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR)
     }
-    fs.writeFilySync(outputPath, generatePage(array), "utf-8")
+    fs.writeFileSync(outputPath, render(teamMember), "utf-8")
 }
 
-
-// call promptManager method
-// promptManager()
-// .then(promptTeamAnswers)
-// .then( => {
-//     return generatePage();
-// })
-// array of objects with the manager's info, engineer's, intern's
+promptManager();
 
 
-// .then for engineer info
-// .then (information => {
-//     switch (information) {
-//         case 'Engineer':
-//     }
-// })
- 
-// Write to file functions
-// function writeToFile(fileName, data) {
-//     return fs.writeFileSync(path.join(process.cwd(), fileName), data)
-// }
-
-// function init() {
-//     inquirer.prompt(questions).then(response => {
-//         writeToFile("page-template", page-template(response));
-//     })
-// }
-
-// init();
-// create a function for each individual role using a .then
-
-// use a switch case to add engineer, etc

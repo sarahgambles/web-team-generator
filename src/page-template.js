@@ -1,32 +1,111 @@
 const fs = require('fs');
+const Manager = require('../lib/Manager');
 
-const profileDataArgs = process.argv.slice(2);
+const generateWebTeam = webTeam => {
 
-const [name, github] = profileDataArgs;
+    const generateManager = manager => {
+      return `
+    <div class="card employee-card">
+      <div class="card-header">
+        <h2 class="card-title">${manager.getName()}</h2>
+        <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>${manager.getRole()}</h3>
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item">ID: ${manager.getId()}</li>
+          <li class="list-group-item">Email: ${manager.getEmail()}}">${manager.getEmail()}</a></li>
+          <li class="list-group-item">Office number: ${manager.getOfficeNumber()}}</li>
+        </ul>
+      </div>
+    </div>
+      `;
+    };
 
-const generateEmployees = (name, github) => {
+    const generateEngineer = engineer => {
+      return `
+    <div class="card employee-card">
+      <div class="card-header">
+        <h2 class="card-title">${engineer.getName()}</h2>
+        <h3 class="card-title"><i class="fas fa-glasses mr-2">${engineer.getRole()}</h3>
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item">ID: ${engineer.getId()}</li>
+          <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
+          <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.getGithub()}" target="_blank" rel="noopener noreferrer">${engineer.getGithub()}</a></li>
+        </ul>
+      </div>
+    </div>
+      `;
+    };
+
+    const generateIntern = intern => {
+      return `
+    <div class="card employee-card">
+      <div class="card-header">
+        <h2 class="card-title">${intern.getName()}</h2>
+        <h3 class="card-title"><i class="fas fa-user-graduate mr-2"></i>${intern.getRole()}</h3>
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item">ID: {{ id }}</li>
+          <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
+          <li class="list-group-item">School: ${intern.getSchool()}</li>
+        </ul>
+      </div>
+    </div>
+      `;
+    };
+
+    const html = [];
+
+    html.push(webTeam
+      .filter(employee => employee.getRole() === "Manager" )
+      .map(manager => generateManager(manager)));
+
+    html.push(webTeam
+      .filter(employee => employee.getRole() === "Engineer")
+      .map(engineer => generateEngineer(engineer))
+      .join(""));
+      
+    html.push(webTeam
+      .filter(employee => employee.getRole() === "Intern")
+      .map(intern => generateIntern(intern))
+      .join(""));
+
+    return html.join("");
+}
+
+module.exports = webTeam => {
   return `
-  <!DOCTYPE html> 
-  <html lang="en"> 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Portfolio Demo</title>
-  </head>
+    <!DOCTYPE html>
+      <html lang="en">
+        <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>All-Star Web Team</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+      </head>
 
-  <body>
-    <h1>${name}</h1>
-    <h2><a href="https://github.com/${github}">Github</a></h2>
-  </body>
+      <body>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 jumbotron mb-3 team-header">
+            <h1 class="text-center">All-Star Web Team</h1>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="team-body col-12 d-flex justify-content-center">
+            ${generateWebTeam(webTeam)}
+          </div>
+        </div>
+      </div>
+    </body>
   </html>
-  `;
-};
-
-fs.writeFile('./index.html', generatePage(name, github), err => {
-  if (err) throw new Error(err);
-
-  console.log('Portfolio complete! Check out index.html to see the output!');
-});
-
-module.exports = page-template.js;
+  `
+}
