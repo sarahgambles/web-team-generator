@@ -22,3 +22,4 @@ This code is for creating a web team webpage.
 Could build more styling and capabilities to be able to make a fuller site.
 
 ### Link to Walkthrough Video
+https://drive.google.com/file/d/1STf_eE7B3jN9zRgex199-pr7JU9NhBka/view
