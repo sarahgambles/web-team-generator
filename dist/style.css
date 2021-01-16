@@ -1,1 +1,42 @@
 /* Bootstrap styling */
+.container-fluid {
+    background-color: #096562;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.text-center {
+    background-color: #096562;
+}
+
+.team-body {
+    background-color: #096562;
+}
+
+.employee-card {
+    margin: 1em;
+    max-width: 280px;
+    width: 85%;
+    min-height: 22rem;
+    background-color: #096562;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+    border: none;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #249EA2;
+    color: white;
+    border-radius: 10px;
+}
+
+.list-group-item {
+    color: #D55B74;
+    font-family: Arial, Helvetica, sans-serif;
+}

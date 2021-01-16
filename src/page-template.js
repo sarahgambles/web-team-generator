@@ -13,8 +13,8 @@ const generateWebTeam = webTeam => {
       <div class="card-body">
         <ul class="list-group">
           <li class="list-group-item">ID: ${manager.getId()}</li>
-          <li class="list-group-item">Email: ${manager.getEmail()}}">${manager.getEmail()}</a></li>
-          <li class="list-group-item">Office number: ${manager.getOfficeNumber()}}</li>
+          <li class="list-group-item">Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></li>
+          <li class="list-group-item">Office number: ${manager.getOfficeNumber()}</li>
         </ul>
       </div>
     </div>
@@ -48,7 +48,7 @@ const generateWebTeam = webTeam => {
       </div>
       <div class="card-body">
         <ul class="list-group">
-          <li class="list-group-item">ID: {{ id }}</li>
+          <li class="list-group-item">ID: ${intern.getId()}</li>
           <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
           <li class="list-group-item">School: ${intern.getSchool()}</li>
         </ul>
